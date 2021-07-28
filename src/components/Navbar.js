@@ -13,8 +13,7 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    width: '900px',
-    margin: '0 auto',
+    ...theme.container
   },
   iconsWrap: {
     marginLeft: 'auto',

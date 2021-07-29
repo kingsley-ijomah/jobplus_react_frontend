@@ -12,6 +12,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { Link } from "react-router-dom"
 import { makeStyles } from '@material-ui/styles';
 
+import { useState, useEffect } from 'react';
+
 const useStyles = makeStyles((theme) => ({
   container: {
     ...theme.container
@@ -58,6 +60,40 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const classes = useStyles();
 
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpenDrawer(true)
+  }
+
+  const handleDrawerClose = () => {
+    setOpenDrawer(false)
+  }
+
+  const [tabIndex, setTabIndex] = useState(false);
+
+  const handleTabIndexChange = (event, index) => {
+    setTabIndex(index)
+  }
+
+  const routes = [
+    { name: 'Home', link: '/', index: 0 },
+    { name: 'Job Listings', link: '/job-listings', index: 1 },
+    { name: 'Job Applications', link: '/job-applications', index: 2 },
+  ]
+
+  useEffect(() => {
+    routes.forEach(route => {
+      switch (window.location.pathname) {
+        case `${route.link}`:
+          setTabIndex(route.index);
+          break;
+        default:
+          return false;
+      }
+    })
+  }, [window.location.pathname])
+
   return (
     <Box>
       <AppBar position="static">
@@ -67,31 +103,29 @@ export default function Navbar() {
               edge='start'
               color='inherit'
               arial-label='menu'
+              onClick={handleDrawerOpen}
             >
               <MenuIcon className={classes.hamburger} />
             </IconButton>
           </Hidden>
           <Typography component="h6" className={classes.logo}>JOBPLUS</Typography>
           <Hidden smDown>
-            <Tabs value={1} className={classes.tabs} classes={{ indicator: classes.indicator }}>
-              <Tab
-                key={0}
-                label={'Home'}
-                component={Link}
-                to={'/'}
-              />
-              <Tab
-                key={1}
-                label={'Job Listings'}
-                component={Link}
-                to={'/job-listings'}
-              />
-              <Tab
-                key={2}
-                label={'Job Applications'}
-                component={Link}
-                to={'/job-applications'}
-              />
+            <Tabs
+              value={tabIndex}
+              onChange={handleTabIndexChange}
+              className={classes.tabs}
+              classes={{ indicator: classes.indicator }}
+            >
+              {routes.map((route, index) => (
+                <Tab
+                  key={`${route}${index}`}
+                  label={route.name}
+                  component={Link}
+                  to={route.link}
+                />
+              ))}
+
+
             </Tabs>
           </Hidden>
 
@@ -126,42 +160,27 @@ export default function Navbar() {
       <Drawer
         variant="persistent"
         anchor="left"
-        open={false}>
+        open={openDrawer}>
         <div className={classes.drawerHeader}>
-          <IconButton>
+          <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
           </IconButton>
         </div>
         <Divider />
         <List>
-          <ListItem
-            key={0}
-            component={Link}
-            to={'/'}
-            selected={true}
-            button>
-            <ListItemText primary={'Home'} />
-          </ListItem>
-
-          <ListItem
-            key={1}
-            component={Link}
-            to={'/job-listings'}
-            selected={false}
-            button>
-            <ListItemText primary={'Job Listings'} />
-          </ListItem>
-
-          <ListItem
-            key={2}
-            component={Link}
-            to={'/job-applications'}
-            selected={false}
-            button>
-            <ListItemText primary={'Job Applications'} />
-          </ListItem>
+          {routes.map((route, index) => (
+            <ListItem
+              key={`${route}${index}`}
+              component={Link}
+              to={route.link}
+              selected={window.location.pathname === route.link}
+              onClick={handleDrawerClose}
+              button>
+              <ListItemText primary={route.name} />
+            </ListItem>
+          ))}
         </List>
       </Drawer>
-    </Box>
+    </Box >
   )
 }

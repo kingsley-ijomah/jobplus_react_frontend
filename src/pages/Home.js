@@ -4,7 +4,7 @@ import Hero from '../components/Hero'
 export default function Home(props) {
   return (
     <>
-      <Hero />
+      <Hero labelColor='secondary' />
     </>
   )
 }

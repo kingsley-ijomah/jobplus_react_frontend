@@ -9,6 +9,7 @@ import JobApplications from './pages/JobApplications'
 import Search from './pages/Search'
 import Notifications from './pages/Notifications'
 import SavedJobs from './pages/SavedJobs'
+import Profile from './pages/Profile'
 
 function App() {
   let history = useHistory();
@@ -23,6 +24,7 @@ function App() {
           <Route exact path='/search' render={props => <Search {...props} />} />
           <Route exact path='/notifications' render={props => <Notifications {...props} />} />
           <Route exact path='/saved-jobs' render={props => <SavedJobs {...props} />} />
+          <Route exact path='/profile' render={props => <Profile {...props} />} />
         </Switch>
         <Cookie />
         <Footer />

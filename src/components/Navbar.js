@@ -150,7 +150,7 @@ export default function Navbar() {
               <PersonOutlineIcon />
             </IconButton>
 
-            <IconButton size="small" component={Link} to={'/search'} color="inherit" edge='start'>
+            <IconButton size="small" component={Link} to={'/login'} color="inherit" edge='start'>
               <ExitToAppIcon />
             </IconButton>
           </Box>

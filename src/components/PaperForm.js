@@ -17,6 +17,11 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '0px'
       }
     },
+    '& .Footer': {
+      fontSize: '13px',
+      textAlign: 'center',
+      margin: '0'
+    },
   }
 }));
 

@@ -3,8 +3,8 @@ import Hero from '../components/Hero';
 import ListingFilter from '../components/ListingFilter';
 import Listing from '../components/Listing';
 
-export default function JobListings() {
-  const listings = [<Listing />]
+export default function ListingDetails() {
+  const listings = [<Listing detailed={true} />]
 
   return (
     <>

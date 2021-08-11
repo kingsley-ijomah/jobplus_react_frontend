@@ -12,6 +12,7 @@ import SavedJobs from './pages/SavedJobs'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import ListingDetails from './pages/ListingDetails'
 
 function App() {
   let history = useHistory();
@@ -29,6 +30,7 @@ function App() {
           <Route exact path='/profile' render={props => <Profile {...props} />} />
           <Route exact path='/login' render={props => <Login {...props} />} />
           <Route exact path='/register' render={props => <Register {...props} />} />
+          <Route exact path='/listing-details' render={props => <ListingDetails {...props} />} />
         </Switch>
         <Cookie />
         <Footer />
